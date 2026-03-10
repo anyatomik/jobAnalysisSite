@@ -5,11 +5,11 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel = "stylesheet" href = "styles/main.css">
+    <link rel = "stylesheet" href = "static/styles/main.css">
     <title>Анализ вакансий</title>
 </head>
 <body>
-<form action="" method="get">
+<!-- form action="" method="get">
   <input type="search">
   <button type="submit">Поиск</button>
 </form>
@@ -25,7 +25,7 @@
     </tr>
     </thead>
     <tbody>
-    <!-- {% for vacancy in vacantions %}
+    {% for vacancy in vacantions %}
     <tr>
         <td> {{ vacancy.searchGeo }}</td>
         <td> {{ vacancy.salaryRan }} </td>
@@ -34,7 +34,7 @@
         <td> {{ vacancy.company }}</td>
 
     </tr>
-     {% endfor %} -->
+     {% endfor %}>
     <tr>
         <td> пример </td>
         <td> пример </td>
@@ -45,6 +45,115 @@
     </tr>
     </tbody>
 
-</table>
+</table -->
+
+    <div class="container">
+        <!-- div class="logo">
+            <div class="text-logo">Open</div>
+        </div -->
+
+        <h2>"Поиск вакансий c hh.ru"</h2>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label for="min-salary">Минимальная зарплата (руб.):</label>
+                <input type="number" id="min-salary" placeholder="Например: 50000" min="0">
+            </div>
+
+            <div class="filter-group">
+                <label for="max-salary">Максимальная зарплата (руб.):</label>
+                <input type="number" id="max-salary" placeholder="Например: 150000" min="0">
+            </div>
+
+            <div class="filter-group">
+                <label for="position">Должность/Профессия:</label>
+                <input type="text" id="position" placeholder="Введите название должности">
+            </div>
+
+            <div class="filter-group">
+                <label for="employment-type">Тип занятости:</label>
+                <select id="employment-type">
+                    <option value="">Любой</option>
+                    <option value="full">Полная занятость</option>
+                    <option value="part">Частичная занятость</option>
+                    <option value="project">Проектная работа</option>
+                    <option value="internship">Стажировка</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="experience">Стаж:</label>
+                <select id="experience">
+                    <option value="">Любой</option>
+                    <option value="no">Без опыта</option>
+                    <option value="1-3">1–3 года</option>
+                    <option value="3-6">3–6 лет</option>
+                    <option value="6+">Более 6 лет</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="location">Местоположение:</label>
+                <select id="location">
+                    <option value="ekaterinburg">Екатеринбург</option>
+                    <option value="sverdlovsk">Свердловская область</option>
+                    <option value="remote">Удалённая работа</option>
+                    <option value="other">Другой город</option>
+                </select>
+            </div>
+
+            <div class="filter-group" id="other-city-container" style="display: none;">
+                <label for="other-city">Укажите город:</label>
+                <input type="text" id="other-city" placeholder="Введите название города">
+            </div>
+        </div>
+
+        <button id="search-btn">Найти вакансии</button>
+
+        <table id="results-table">
+            <thead>
+                <tr>
+                    <th>Должность</th>
+            <th>Предприятие</th>
+            <th>Зарплата</th>
+            <th>Тип занятости</th>
+            <th>Требуемый стаж</th>
+            <th>Местоположение</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Результаты поиска будут добавляться сюда через JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Показ/скрытие поля для ввода города
+        document.getElementById('location').addEventListener('change', function() {
+            const otherCityContainer = document.getElementById('other-city-container');
+            if (this.value === 'other') {
+                otherCityContainer.style.display = 'flex';
+            } else {
+                otherCityContainer.style.display = 'none';
+                // Сброс значения поля ввода при переключении с «Другой город»
+                document.getElementById('other-city').value = '';
+            }
+        });
+
+        document.getElementById('search-btn').addEventListener('click', function() {
+            // Обработка поиска и заполнение таблицы
+            const tbody = document.querySelector('#results-table tbody');
+            const location = document.getElementById('location').value;
+            let locationText = '';
+
+            switch (location) {
+                case 'ekaterinburg':
+                    locationText = 'Екатеринбург';
+                    break;
+                case 'sverdlovsk':
+                    locationText = 'Свердловская область';
+                    break
+               </script>
 </body>
 </html>
+
