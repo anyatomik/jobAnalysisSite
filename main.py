@@ -1,5 +1,6 @@
-from flask import Flask,render_template
+from flask import Flask,render_template, request
 from flask_frozen import Freezer
+import git
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -23,12 +24,21 @@ class vacancy(database.Model):
 '''
 
 
-@app.route('/')
-def mainn():
+#@app.route('/')
+#def mainn():
+@app.route('/update_server', methods=['POST'])
+def webhook():
+    if request.method == 'POST':
+        repo = git.Repo('/home/anyatomik/jobAnalysisSite')
+        origin = repo.remotes.origin
+        origin.pull()
+        return 'Updated successfully', 200
+    else:
+        return 'Wrong event type', 400
 
     #vacantions = vacancy.query.all()
-    return render_template('index.html') #vacantions = vacantions
+    #return render_template('index.html') #vacantions = vacantions
 
-if __name__ == '__main__':
-    freezer.freeze()
+# if __name__ == '__main__':
+    # freezer.freeze()
    # app.run(debug=True)
