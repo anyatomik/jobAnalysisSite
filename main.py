@@ -24,21 +24,9 @@ class vacancy(database.Model):
 '''
 
 
-#@app.route('/')
-#def mainn():
-@app.route('/update_server', methods=['POST'])
-def webhook():
-    if request.method == 'POST':
-        repo = git.Repo('/home/anyatomik/jobAnalysisSite')
-        origin = repo.remotes.origin
-        origin.pull()
-        return 'Updated successfully', 200
-    else:
-        return 'Wrong event type', 400
-
-    #vacantions = vacancy.query.all()
-    #return render_template('index.html') #vacantions = vacantions
-
-# if __name__ == '__main__':
-    # freezer.freeze()
-   # app.run(debug=True)
+@app.route('/')
+def mainn():
+    return render_template('index.html')
+if __name__ == '__main__':
+    freezer.freeze()
+    #app.run(debug=True)
