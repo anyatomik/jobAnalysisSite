@@ -1,150 +1,291 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel = "stylesheet" href = "static/styles/main.css">
-    <title>Анализ вакансий</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анализ вакансий с hh.ru</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+            padding: 0;
+        }
+        .container {
+            max-width: 100%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .text-logo {
+            font-size: 2.8em;
+            font-weight: bold;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+        }
+        .filters {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            table-layout: fixed;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        th {
+             background-color: #f8f9fa;
+             font-weight: bold;
+             white-space: nowrap;
+         }
+         tr:nth-child(even) {
+             background-color: #f9f9f9;
+         }
+         @media (max-width: 768px) {
+             .container {
+                 padding: 10px;
+                 margin: 10px;
+             }
+             .text-logo {
+                 font-size: 2em;
+             }
+             th, td {
+                 padding: 8px 6px;
+                 font-size: 14px;
+             }
+         }
+         /* --- НОВЫЕ СТИЛИ ДЛЯ БРЕНДИНГА --- */
+         .company-branding {
+             text-align: center; /* Выравнивание по центру */
+             margin-bottom: 30px; /* Отступ снизу */
+         }
+         .company-branding img {
+             max-height: 150px; /* Высота логотипа */
+         }
+         .company-link {
+             display: block; /* Чтобы ссылка занимала отдельную строку */
+             margin-top: 10px; /* Отступ сверху от логотипа */
+             font-size: 14px; /* Размер шрифта */
+             color: #3498db; /* Цвет ссылки */
+             text-decoration: none; /* Убираем подчеркивание по умолчанию */
+         }
+         .company-link:hover {
+             text-decoration: underline; /* Подчеркивание при наведении */
+         }
+    </style>
 </head>
 <body>
-<!-- form action="" method="get">
-  <input type="search">
-  <button type="submit">Поиск</button>
-</form>
-<table>
-    <caption>Вакансии:</caption>
-    <thead>
-    <tr>
-        <th>География поиска</th>
-        <th>Диапазон зп</th>
-        <th>Опыт работы</th>
-        <th>Тип занятости</th>
-        <th>Компания</th>
-    </tr>
-    </thead>
-    <tbody>
-    >
-    <tr>
-        <td> пример </td>
-        <td> пример </td>
-        <td> пример </td>
-        <td> пример </td>
-        <td> пример </td>
-
-    </tr>
-    </tbody>
-
-</table -->
-
-    <div class="container">
-        <!-- div class="logo">
-            <div class="text-logo">Open</div>
-        </div -->
-
-        <h2>"Поиск вакансий c hh.ru"</h2>
-
-        <div class="filters">
-            <div class="filter-group">
-                <label for="min-salary">Минимальная зарплата (руб.):</label>
-                <input type="number" id="min-salary" placeholder="Например: 50000" min="0">
-            </div>
-
-            <div class="filter-group">
-                <label for="max-salary">Максимальная зарплата (руб.):</label>
-                <input type="number" id="max-salary" placeholder="Например: 150000" min="0">
-            </div>
-
-            <div class="filter-group">
-                <label for="position">Должность/Профессия:</label>
-                <input type="text" id="position" placeholder="Введите название должности">
-            </div>
-
-            <div class="filter-group">
-                <label for="employment-type">Тип занятости:</label>
-                <select id="employment-type">
-                    <option value="">Любой</option>
-                    <option value="full">Полная занятость</option>
-                    <option value="part">Частичная занятость</option>
-                    <option value="project">Проектная работа</option>
-                    <option value="internship">Стажировка</option>
-                </select>
-            </div>
-
-            <div class="filter-group">
-                <label for="experience">Стаж:</label>
-                <select id="experience">
-                    <option value="">Любой</option>
-                    <option value="no">Без опыта</option>
-                    <option value="1-3">1–3 года</option>
-                    <option value="3-6">3–6 лет</option>
-                    <option value="6+">Более 6 лет</option>
-                </select>
-            </div>
-
-            <div class="filter-group">
-                <label for="location">Местоположение:</label>
-                <select id="location">
-                    <option value="ekaterinburg">Екатеринбург</option>
-                    <option value="sverdlovsk">Свердловская область</option>
-                    <option value="remote">Удалённая работа</option>
-                    <option value="other">Другой город</option>
-                </select>
-            </div>
-
-            <div class="filter-group" id="other-city-container" style="display: none;">
-                <label for="other-city">Укажите город:</label>
-                <input type="text" id="other-city" placeholder="Введите название города">
-            </div>
-        </div>
-
-        <button id="search-btn">Найти вакансии</button>
-
-        <table id="results-table">
-            <thead>
-                <tr>
-                    <th>Должность</th>
-            <th>Предприятие</th>
-            <th>Зарплата</th>
-            <th>Тип занятости</th>
-            <th>Требуемый стаж</th>
-            <th>Местоположение</th>
-            <th>Ссылка</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Результаты поиска будут добавляться сюда через JavaScript -->
-            </tbody>
-        </table>
+<div class="container">
+    <!-- --- НОВЫЙ БЛОК (ДОБАВЛЕНО) --- -->
+    <div class="company-branding">
+      <!-- ЛОГОТИП ЗАГРУЖАЕТСЯ ИЗ ЛОКАЛЬНОГО ФАЙЛА -->
+      <img src="logo_svel.png" alt="Логотип компании СВЭЛ">
+      <a href="https://svel.ru/?ysclid=mn7cocf0zp100843268" target="_blank" class="company-link">Официальный сайт СВЭЛ</a>
     </div>
 
-    <script>
-        // Показ/скрытие поля для ввода города
-        document.getElementById('location').addEventListener('change', function() {
-            const otherCityContainer = document.getElementById('other-city-container');
-            if (this.value === 'other') {
-                otherCityContainer.style.display = 'flex';
+    <div class="logo">
+      <div class="text-logo"></div>
+    </div>
+
+    <h2>Анализ вакансий с hh.ru</h2>
+
+    <div class="filters">
+      <div class="filter-group">
+          <label for="min-salary">Минимальная зарплата (руб.):</label>
+          <input type="number" id="min-salary" placeholder="Например: 50000" min="0"/>
+      </div>
+      <div class="filter-group">
+          <label for="max-salary">Максимальная зарплата (руб.):</label>
+          <input type="number" id="max-salary" placeholder="Например: 150000" min="0"/>
+      </div>
+      <div class="filter-group">
+          <label for="position">Должность/Профессия:</label>
+          <input type="text" id="position" placeholder="Введите название должности"/>
+      </div>
+      <div class="filter-group">
+          <label for="employment-type">Тип занятости:</label>
+          <select id="employment-type">
+              <option value="">Любой</option>
+              <option value="fullDay">Полный день</option>
+              <option value="shift">Сменная работа</option>
+              <option value="flexible">Гибкий график</option>
+              <option value="remote">Удаленная работа</option>
+          </select>
+      </div>
+      <div class="filter-group">
+          <label for="experience">Стаж:</label>
+          <select id="experience">
+              <option value="">Любой</option>
+              <option value="noExperience">Нет опыта</option>
+              <option value="between1And3">1–3 года</option>
+              <option value="between3And6">3–6 лет</option>
+              <option value="moreThan6">Больше 6 лет</option>
+          </select>
+      </div>
+      <div class="filter-group">
+          <label for="location">Местоположение:</label>
+          <select id="location">
+              <option value="3">Свердловская область</option>
+              <option value="3">Екатеринбург</option> <!-- Обратите внимание на дублирование значения -->
+              <option value="76">Удаленная работа</option>
+          </select>
+      </div>
+    </div>
+
+    <button id="search-btn">Найти вакансии</button>
+
+    <!-- --- ИЗМЕНЕНИЕ В ТАБЛИЦЕ (ДОБАВЛЕН СТОЛБЕЦ "Ссылка") --- -->
+    <table id="results-table">
+      <thead>
+          <tr>
+              <th>Должность</th>
+              <th>Компания</th>
+              <th>Зарплата</th>
+              <th>Занятость</th>
+              <th>Опыт работы</th>
+              <th>Город</th>
+              <th>Ссылка</th> <!-- НОВЫЙ СТОЛБЕЦ -->
+          </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+</div>
+
+<script>
+    document.getElementById('search-btn').addEventListener('click', async () => {
+    // Сбор значений фильтров
+    const minSalary = document.getElementById('min-salary').value.trim();
+    const maxSalary = document.getElementById('max-salary').value.trim();
+    const position = document.getElementById('position').value.trim();
+    const employmentType = document.getElementById('employment-type').value;
+    const experience = document.getElementById('experience').value;
+    const location = document.getElementById('location').value;
+
+    // Проверяем обязательное поле "регион"
+    if (!location) {
+        return alert('Необходимо выбрать регион.');
+    }
+
+    // Базовая ссылка для API
+    let apiUrl = `https://api.hh.ru/vacancies?area=${location}&only_with_salary=true`;
+
+    // Добавляем дополнительные параметры только если они указаны
+    if (minSalary) apiUrl += `&salary=${minSalary}`;
+    if (maxSalary) apiUrl += `&salary=${maxSalary}`; // ИСПРАВЛЕНО: теперь добавляет maxSalary
+    if (position) apiUrl += `&text=${encodeURIComponent(position)}`;
+    if (employmentType && employmentType !== '') apiUrl += `&schedule=${employmentType}`;
+    if (experience && experience !== '') apiUrl += `&experience=${experience}`;
+
+    // Добавляем параметр количества вакансий (по желанию, для получения большего числа результатов)
+    apiUrl += `&per_page=100`;
+
+    // Чистка предыдущей таблицы перед новым запросом
+    const resultsTableBody = document.querySelector('#results-table tbody');
+    resultsTableBody.innerHTML = '';
+
+    // Загружаем данные через fetch
+    try {
+        const response = await fetch(apiUrl);
+
+        // Проверяем, успешен ли запрос (статус 200-299)
+        if (!response.ok) {
+            throw new Error(`Ошибка сети или сервера: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Проверяем, есть ли вакансии в ответе
+        if (data.items.length === 0) {
+            resultsTableBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Вакансии не найдены.</td></tr>';
+            return;
+        }
+
+        // Выводим результаты в таблицу
+        data.items.forEach((job) => {
+            const row = resultsTableBody.insertRow();
+
+            row.insertCell().innerHTML = job.name; // Должность
+            row.insertCell().innerHTML = job.employer.name; // Компания
+
+            // Зарплата
+            const salaryCell = row.insertCell();
+            salaryCell.innerHTML = job.salary ? `${job.salary.from}-${job.salary.to}` : 'нет данных';
+
+            row.insertCell().innerHTML = job.schedule ? job.schedule.name : 'нет данных'; // Занятость
+            row.insertCell().innerHTML = job.experience ? job.experience.name : 'нет данных'; // Опыт работы
+            row.insertCell().innerHTML = job.area ? job.area.name : 'нет данных'; // Город
+
+            // ССЫЛКА на вакансию (НОВЫЙ СТОЛБЕЦ)
+            const linkCell = row.insertCell();
+            if (job.alternate_url) {
+                linkCell.innerHTML = `<a href="${job.alternate_url}" target="_blank">Открыть</a>`;
             } else {
-                otherCityContainer.style.display = 'none';
-                // Сброс значения поля ввода при переключении с «Другой город»
-                document.getElementById('other-city').value = '';
+                linkCell.innerHTML = 'нет ссылки';
             }
         });
 
-        document.getElementById('search-btn').addEventListener('click', function() {
-            // Обработка поиска и заполнение таблицы
-            const tbody = document.querySelector('#results-table tbody');
-            const location = document.getElementById('location').value;
-            let locationText = '';
+    } catch (err) {
+        alert('Ошибка при получении данных: ' + err.message);
+        console.error(err);
+    }
+});
 
-            switch (location) {
-                case 'ekaterinburg':
-                    locationText = 'Екатеринбург';
-                    break;
-                case 'sverdlovsk':
-                    locationText = 'Свердловская область';
-                    break
-               </script>
+</script>
 </body>
 </html>

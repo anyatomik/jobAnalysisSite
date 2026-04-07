@@ -9,19 +9,6 @@ app = Flask(__name__)
 app.config['FREEZER_DESTINATION'] = 'docs'
 app.config['FREEZER_RELATIVE_URLS'] = True
 freezer = Freezer(app)
-'''
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db' #здесь ссылка на бд
-database = SQLAlchemy(app)
-
-
-class vacancy(database.Model):
-    searchGeo = database.Column(database.String)
-    salaryRan = database.Coulumn(database.String)
-    wrkExp = database.Column(database.String)
-    wrkType = database.Column(database.String)
-    company = database.Column(database.String)
-
-'''
 
 
 @app.route('/')
